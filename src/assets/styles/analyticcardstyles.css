@@ -1,0 +1,15 @@
+.analytic-card-image {
+  width: 80px;
+  height: auto;
+}
+
+.card-define {
+  height: 80px;
+}
+
+.card-header {
+  font-size: 16px;
+}
+.card-value {
+  font-size: 24px;
+}

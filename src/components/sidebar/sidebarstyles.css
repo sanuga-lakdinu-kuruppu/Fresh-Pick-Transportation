@@ -1,0 +1,16 @@
+/* Side bar Logo and text */
+.side-bar-description {
+  font-size: 10px;
+}
+.side-bar-logo {
+  width: 60px;
+  height: auto;
+}
+
+/* Nav Menu Styles */
+.nav-menu-icon {
+  transform: scale(0.8);
+}
+.nav-menu-text {
+  font-size: 12px;
+}
