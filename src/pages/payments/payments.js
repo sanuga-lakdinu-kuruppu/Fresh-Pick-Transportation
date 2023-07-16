@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import SearchBox from "../../components/searchbox/searchbox";
 import {
-  AnalyticsCardData,
+  DashboardAnalyticsCardData as dashboardAnalyticsCardData,
   DashboardTableRows,
 } from "../../utils/constants/uiconstants";
 import AnalyticCard from "../../components/common/analyticscard";
@@ -53,7 +53,7 @@ function Payments() {
 
       {/* Analytics Card */}
       <div className="row ms-2 my-1 rounded col-auto">
-        {AnalyticsCardData.map((card) => {
+        {dashboardAnalyticsCardData.map((card) => {
           return (
             <div key={card.id} className="mx-0 my-1 d-inline-block w-auto">
               <AnalyticCard

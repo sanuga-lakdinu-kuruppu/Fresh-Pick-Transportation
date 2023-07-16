@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { ToggleButtonGroup } from "@mui/material";
 import NavToggleButton from "../common/navitemtogglebutton";
 import { NavContext } from "../../context/navcontext";
-import { NavMenuData } from "../../utils/constants/uiconstants";
+import { NavMenuData as navMenuData } from "../../utils/constants/uiconstants";
 import { useNavigate } from "react-router-dom";
 
 function NavMenu() {
@@ -26,7 +26,7 @@ function NavMenu() {
       defaultValue={navSelected}
       exclusive
     >
-      {NavMenuData.map((menuitem) => {
+      {navMenuData.map((menuitem) => {
         return (
           <NavToggleButton key={menuitem.key} value={menuitem.key}>
             <div className="w-100 h-100">

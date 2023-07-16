@@ -8,6 +8,8 @@ import Dashboard from "./pages/dashboard";
 import Rides from "./pages/rides";
 import Payments from "./pages/payments";
 import Reports from "./pages/reports";
+import Notification from "./pages/notifications";
+import Calendar from "./pages/calendar";
 
 function App() {
   const [navSelected, setNavSelected] = React.useState("dashboard");
@@ -24,6 +26,8 @@ function App() {
                 <Route path="/ride" element={<Rides />}></Route>
                 <Route path="/payment" element={<Payments />}></Route>
                 <Route path="/report" element={<Reports />}></Route>
+                <Route path="/notification" element={<Notification />}></Route>
+                <Route path="/calendar" element={<Calendar />}></Route>
               </Routes>
             </div>
           </NavContext.Provider>

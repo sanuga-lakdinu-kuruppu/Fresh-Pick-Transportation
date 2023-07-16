@@ -20,7 +20,7 @@ function AnalyticCard(props) {
         <div className="">
           <div className="d-inline-block align-top card-define">
             <img
-              className="my-1 align-top analytic-card-image"
+              className="my-1 mx-1 align-top analytic-card-image"
               src={props.image}
               alt="Analytics"
             />
