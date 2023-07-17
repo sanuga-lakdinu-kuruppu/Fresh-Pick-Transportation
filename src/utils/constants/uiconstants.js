@@ -12,7 +12,10 @@ import boxesdash_analytics from "../../assets/graphics/images/dashboard_imgs/box
 import investmentdash_analytics_ from "../../assets/graphics/images/dashboard_imgs/return-of-investmentdash_analytics_.png";
 import payment_payment from "../../assets/graphics/images/payments_imgs/payement_payment.png";
 import payment_increse from "../../assets/graphics/images/payments_imgs/payment_increase.png";
-
+import report_warranty_img from "../../assets/graphics/images/report_imgs/report_warranty_img.png";
+import report_bill_img from "../../assets/graphics/images/report_imgs/report_bill_img.png";
+import fast_man from "../../assets/graphics/images/report_imgs/fast.png";
+import delivery_truck from "../../assets/graphics/images/report_imgs/delivery-truck.png";
 const gloablesearchoption = [
   {
     id: 1,
@@ -312,6 +315,7 @@ const ridesTableRows = [
   },
 ];
 
+//Payment Analytics Card Data
 const paymentsAnalyticsCardData = [
   {
     id: 1,
@@ -440,6 +444,31 @@ const paymentsTableRows = [
   },
 ];
 
+//Reports Table Report Card
+const reportCardData = [
+  {
+    id: 1,
+    gradientAngle: "45deg",
+    fromColor: "#2ecc71",
+    toColor: "#FFF",
+    cardHeader: "Delivery Report",
+    iconImage: report_warranty_img,
+    cardDescription:
+      "You can generate delivery report<br/> for your selected period below.",
+    sideImage: fast_man,
+  },
+  {
+    id: 2,
+    gradientAngle: "45deg",
+    fromColor: "#e74c3c",
+    toColor: "#FFF",
+    cardHeader: "Payment Report",
+    iconImage: report_bill_img,
+    cardDescription:
+      "You can generate payment report<br/> for your selected period below.",
+    sideImage: delivery_truck,
+  },
+];
 export const gloableSearchOption = gloablesearchoption;
 export const DashboardTableRows = dashBoardTableRows;
 export const NavMenuData = navMenuData;
@@ -447,3 +476,4 @@ export const DashboardAnalyticsCardData = dashboardAnalyticsCardData;
 export const RidesTableRows = ridesTableRows;
 export const PaymentsAnalyticsCardData = paymentsAnalyticsCardData;
 export const PaymentsTableRows = paymentsTableRows;
+export const ReportCardData = reportCardData;

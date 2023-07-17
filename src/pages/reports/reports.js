@@ -6,6 +6,7 @@ import { IconButton } from "@mui/material";
 import { NavContext } from "../../context/navcontext";
 import { useNavigate } from "react-router-dom";
 import ReportComponent from "../../components/common/reportcomponent";
+import { ReportCardData as reportCardData } from "../../utils/constants/uiconstants";
 
 function Reports() {
   //User Defined
@@ -62,7 +63,21 @@ function Reports() {
       {/* Body Content of the report section */}
       <div className="row w-100 h-100 ms-2 me-4">
         <div className="col-12">
-          <ReportComponent />
+          {reportCardData.map((reportCard) => {
+            return (
+              <div className="mb-3" key={reportCard.id}>
+                <ReportComponent
+                  gradientAngle={reportCard.gradientAngle}
+                  fromColor={reportCard.fromColor}
+                  toColor={reportCard.toColor}
+                  cardHeader={reportCard.cardHeader}
+                  iconImage={reportCard.iconImage}
+                  cardDescription={reportCard.cardDescription}
+                  sideImage={reportCard.sideImage}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

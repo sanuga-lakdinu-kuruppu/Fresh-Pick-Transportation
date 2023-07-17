@@ -22,7 +22,7 @@ function ReportComponent(props) {
         width: props.cardWidth,
         height: props.cardHeight,
         boxShadow: "none",
-        background: `linear-gradient(45deg,#2ecc71, #FFF)`,
+        background: `linear-gradient(${props.gradientAngle},${props.fromColor}, ${props.toColor})`,
         borderRadius: 5,
       }}
     >
@@ -31,15 +31,12 @@ function ReportComponent(props) {
           {/* Left side content */}
           <div className="col-6">
             <div className="d-flex align-items-center">
-              <div className="h2 text-white mt-1">Delivery Report</div>
+              <div className="h2 text-white mt-1">{props.cardHeader}</div>
               <div className="">
-                <img src={report_warranty_img} className="" />
+                <img src={props.iconImage} className="" />
               </div>
             </div>
-            <div className="h6 text-white mt-3">
-              You can generate delivery report <br /> for your selected period
-              below.
-            </div>
+            <div className="h6 text-white mt-3">{props.cardDescription}</div>
             <div className="mt-4 mb-3 d-flex">
               <div className="d-flex align-items-center me-4">
                 <div className="sub-header me-2 w-auto fw-bold text-white">
@@ -78,7 +75,7 @@ function ReportComponent(props) {
             </div>
           </div>
           <div className="col-3">
-            <img src={fast_man_img} className="report-component-side-img" />
+            <img src={props.sideImage} className="report-component-side-img" />
           </div>
         </div>
       </CardContent>
