@@ -10,6 +10,8 @@ import courierdash_analytics from "../../assets/graphics/images/dashboard_imgs/c
 import shippingdash_analytics from "../../assets/graphics/images/dashboard_imgs/shippingdash_analytics_.png";
 import boxesdash_analytics from "../../assets/graphics/images/dashboard_imgs/boxesdash_analytics_.png";
 import investmentdash_analytics_ from "../../assets/graphics/images/dashboard_imgs/return-of-investmentdash_analytics_.png";
+import payment_payment from "../../assets/graphics/images/payments_imgs/payement_payment.png";
+import payment_increse from "../../assets/graphics/images/payments_imgs/payment_increase.png";
 
 const gloablesearchoption = [
   {
@@ -310,8 +312,138 @@ const ridesTableRows = [
   },
 ];
 
+const paymentsAnalyticsCardData = [
+  {
+    id: 1,
+    header: "Total Earn",
+    value: 80000,
+    image: payment_increse,
+    gradientAngle: "315deg",
+    fromColor: "#2ecc71",
+    toColor: "#FFF",
+    width: 250,
+    height: 140,
+  },
+  {
+    id: 2,
+    header: "Pending",
+    value: 42000,
+    image: payment_payment,
+    gradientAngle: "315deg",
+    fromColor: "#3498db",
+    toColor: "#FFF",
+    width: 250,
+    height: 140,
+  },
+];
+
+//Payment Table Rows
+const paymentsTableRows = [
+  {
+    id: 1,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 2,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 3,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 4,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 5,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 6,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 7,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 8,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 9,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 10,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+  {
+    id: 11,
+    orderId: 46813297654564,
+    avatar: <AccountCircle />,
+    product: "Korean (Long) Radish",
+    qty: "115 kg",
+    status: "Requested",
+    date: "18 June 2023",
+  },
+];
+
 export const gloableSearchOption = gloablesearchoption;
 export const DashboardTableRows = dashBoardTableRows;
 export const NavMenuData = navMenuData;
 export const DashboardAnalyticsCardData = dashboardAnalyticsCardData;
 export const RidesTableRows = ridesTableRows;
+export const PaymentsAnalyticsCardData = paymentsAnalyticsCardData;
+export const PaymentsTableRows = paymentsTableRows;

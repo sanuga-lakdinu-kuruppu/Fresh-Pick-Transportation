@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./payments.css";
 import { CalendarMonth, NotificationAdd } from "@mui/icons-material";
 import {
@@ -17,16 +17,39 @@ import SearchBox from "../../components/searchbox/searchbox";
 import {
   DashboardAnalyticsCardData as dashboardAnalyticsCardData,
   DashboardTableRows,
+  PaymentsAnalyticsCardData as paymentsAnalyticsCardData,
+  PaymentsTableRows as paymentsTableRows,
 } from "../../utils/constants/uiconstants";
 import AnalyticCard from "../../components/common/analyticscard";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { LOGO_X64 } from "../../utils/constants/configconstants";
+import { useNavigate } from "react-router-dom";
+import { NavContext } from "../../context/navcontext";
+import payment_img from "../../assets/graphics/images/payments_imgs/payments_img.png";
 
 function Payments() {
-  const [value, setValue] = useState("requested");
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  //User Defined
+  //Navigation Handle
+  const navigate = useNavigate();
+  const { navSelected, setNavSelected } = useContext(NavContext);
+  const handleNavToggleChange = (params) => {
+    navigate(`/${params.key}`);
+    setNavSelected(params.key);
   };
+
+  //Set the selected tab
+  const [selectedTab, setSelectedTab] = useState("receipts");
+  const handleChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
+
+  //set the selected Row
+  const [selectedRow, setSelectedRow] = useState(0);
+  const handleSelectRow = (row, rowIndex) => {
+    setSelectedRow(rowIndex);
+    console.log(row);
+  };
+
   return (
     <div className="">
       <div className="row ms-2 my-3 py-3 h3 fw-bolder primary-color">
@@ -42,10 +65,28 @@ function Payments() {
           <SearchBox className="w-auto" />
         </div>
         <div className="d-inline-block col-auto my-1">
-          <IconButton>
+          <IconButton
+            onClick={() =>
+              handleNavToggleChange({
+                id: 6,
+                key: "calendar",
+                icon: <CalendarMonth />,
+                item: "Calendar",
+              })
+            }
+          >
             <CalendarMonth />
           </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={() =>
+              handleNavToggleChange({
+                id: 5,
+                key: "notification",
+                icon: <NotificationAdd />,
+                item: "Notification",
+              })
+            }
+          >
             <NotificationAdd />
           </IconButton>
         </div>
@@ -53,7 +94,7 @@ function Payments() {
 
       {/* Analytics Card */}
       <div className="row ms-2 my-1 rounded col-auto">
-        {dashboardAnalyticsCardData.map((card) => {
+        {paymentsAnalyticsCardData.map((card) => {
           return (
             <div key={card.id} className="mx-0 my-1 d-inline-block w-auto">
               <AnalyticCard
@@ -76,155 +117,129 @@ function Payments() {
         {/* Rides Tab Sections */}
         <div className="col-8">
           {/* All Your Activities Tab */}
-          <div className="row bg-light ms-4 py-3 rounded">
-            <div className="h2 secondary-color fw-bolder">
-              All Your Activities
+          <div className="row bg-light ms-4 py-2 rounded">
+            <div className="h4 secondary-color fw-bolder text-black">
+              All your payment instances
               <div className="d-block float-end">
                 <img
                   className="top-head-image ms-3"
-                  src={LOGO_X64}
+                  src={payment_img}
                   alt="Tempory"
                 />
               </div>
             </div>
             {/* Rides Tab Section */}
             <div>
-              <Box></Box>
               <TabContext
-                value={value}
+                value={selectedTab}
                 textColor="secondary"
                 indicatorColor="secondary"
                 aria-label="secondary tabs example"
               >
                 <TabList onChange={handleChange}>
-                  <Tab value="requested" label="Requested" />
-                  <Tab value="ongoing" label="Ongoing" />
-                  <Tab value="completed" label="Completed" />
+                  <Tab value="receipts" label="Delivery Receipts" />
+                  <Tab value="transactions" label="Transactions" />
                 </TabList>
-                {/* Requested Table */}
-                <TabPanel value="requested">
+                {/* Receipts Table */}
+                <TabPanel value="receipts">
                   <TableContainer
                     component={Paper}
                     sx={{
-                      maxHeight: 400,
                       overflowY: "scroll",
+                      maxHeight: 410,
                       "&::-webkit-scrollbar": { display: "none" },
                       msOverflowStyle: "none",
                       scrollbarWidth: "none",
                     }}
                   >
-                    <Table sx={{ minWidth: 400 }} aria-label="simple table">
+                    <Table aria-label="simple table" size="small" stickyHeader>
                       <TableHead>
-                        <TableRow>
-                          <TableCell>Dessert (100g serving)</TableCell>
-                          <TableCell align="right">Calories</TableCell>
-                          <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                          <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                          <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableRow
+                          selected={selectedRow === 0}
+                          onClick={() => handleSelectRow(0)}
+                        >
+                          <TableCell></TableCell>
+                          <TableCell style={{ paddingTop: 0 }}>
+                            Order Id
+                          </TableCell>
+                          <TableCell align="right">Product</TableCell>
+                          <TableCell align="right">Quantity</TableCell>
+                          <TableCell align="right">Status</TableCell>
+                          <TableCell align="right">Time</TableCell>
                         </TableRow>
                       </TableHead>
-                      <TableBody>
-                        {DashboardTableRows.map((row) => (
+                      <TableBody sx={{}}>
+                        {paymentsTableRows.map((row, index) => (
                           <TableRow
-                            key={row.name}
+                            key={row.id}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
+                            selected={selectedRow === index + 1}
+                            onClick={() => handleSelectRow(row, index + 1)}
+                            hover
                           >
                             <TableCell component="th" scope="row">
-                              {row.name}
+                              {row.avatar}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="right">{row.orderId}</TableCell>
+                            <TableCell align="right">{row.product}</TableCell>
+                            <TableCell align="right">{row.qty}</TableCell>
+                            <TableCell align="right">{row.status}</TableCell>
+                            <TableCell align="right">{row.date}</TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
                     </Table>
                   </TableContainer>
                 </TabPanel>
-                {/* Ongoing Table */}
-                <TabPanel value="ongoing">
+                {/* Transaction Table */}
+                <TabPanel value="transactions">
                   <TableContainer
                     component={Paper}
                     sx={{
-                      maxHeight: 400,
                       overflowY: "scroll",
+                      maxHeight: 410,
                       "&::-webkit-scrollbar": { display: "none" },
                       msOverflowStyle: "none",
                       scrollbarWidth: "none",
                     }}
                   >
-                    <Table sx={{ minWidth: 400 }} aria-label="simple table">
+                    <Table aria-label="simple table" size="small" stickyHeader>
                       <TableHead>
-                        <TableRow>
-                          <TableCell>Dessert (100g serving)</TableCell>
-                          <TableCell align="right">Calories</TableCell>
-                          <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                          <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                          <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableRow
+                          selected={selectedRow === 0}
+                          onClick={() => handleSelectRow(0)}
+                        >
+                          <TableCell></TableCell>
+                          <TableCell style={{ paddingTop: 0 }}>
+                            Order Id
+                          </TableCell>
+                          <TableCell align="right">Product</TableCell>
+                          <TableCell align="right">Quantity</TableCell>
+                          <TableCell align="right">Status</TableCell>
+                          <TableCell align="right">Time</TableCell>
                         </TableRow>
                       </TableHead>
-                      <TableBody>
-                        {DashboardTableRows.map((row) => (
+                      <TableBody sx={{}}>
+                        {paymentsTableRows.map((row, index) => (
                           <TableRow
-                            key={row.name}
+                            key={row.id}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
+                            selected={selectedRow === index + 1}
+                            onClick={() => handleSelectRow(row, index + 1)}
+                            hover
                           >
                             <TableCell component="th" scope="row">
-                              {row.name}
+                              {row.avatar}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </TabPanel>
-                {/* Completed Table */}
-                <TabPanel value="completed">
-                  {" "}
-                  <TableContainer
-                    component={Paper}
-                    sx={{
-                      maxHeight: 400,
-                      overflowY: "scroll",
-                      "&::-webkit-scrollbar": { display: "none" },
-                      msOverflowStyle: "none",
-                      scrollbarWidth: "none",
-                    }}
-                  >
-                    <Table sx={{ minWidth: 400 }} aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Dessert (100g serving)</TableCell>
-                          <TableCell align="right">Calories</TableCell>
-                          <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                          <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                          <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {DashboardTableRows.map((row) => (
-                          <TableRow
-                            key={row.name}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="right">{row.orderId}</TableCell>
+                            <TableCell align="right">{row.product}</TableCell>
+                            <TableCell align="right">{row.qty}</TableCell>
+                            <TableCell align="right">{row.status}</TableCell>
+                            <TableCell align="right">{row.date}</TableCell>
                           </TableRow>
                         ))}
                       </TableBody>

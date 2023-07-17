@@ -97,7 +97,7 @@ function Rides() {
         <div className="col-8">
           {/* All Your Activities Tab */}
           <div className="row bg-light ms-4 py-3 rounded">
-            <div className="h2 secondary-color fw-bolder text-black">
+            <div className="h4 secondary-color fw-bolder text-black">
               All Your Activities
               <div className="d-block float-end">
                 <img
@@ -287,10 +287,10 @@ function Rides() {
 
         {/* Full Details Tab */}
         <div className="col-4">
-          <div className="bg-light rounded ms-3 me-2 mt-0 p-2 mb-2">
+          <div className="bg-light rounded ms-2 me-2 mt-0 p-2 mb-2">
             {/* Full Detials Header */}
             <div className="clearfix mt-3 mb-2">
-              <div className="float-start fw-medium text-black">
+              <div className="h4 float-start fw-bold text-black">
                 Full Details
               </div>
               <div className="float-end fw-medium secondary-color">
