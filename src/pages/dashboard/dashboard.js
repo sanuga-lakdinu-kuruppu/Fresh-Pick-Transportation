@@ -6,14 +6,19 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
   Box,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from "@mui/material";
 import { CalendarMonth, NotificationAdd } from "@mui/icons-material";
 import SearchBox from "../../components/searchbox";
@@ -26,13 +31,15 @@ import { DefaultDatePicker } from "../../components/common/defaultdatepicker";
 import { useNavigate } from "react-router-dom";
 import { NavContext } from "../../context/navcontext";
 import SearchField from "../../components/searchfield/searchfield";
+import trolley_img from "../../assets/graphics/images/dashboard_imgs/trolley_full_details.png";
+import { DefaultButton } from "../../components/common/defaultbtn";
 
 function Dashboard() {
   //User Defined
   //Navigation Handle
   const navigate = useNavigate();
   const { navSelected, setNavSelected } = useContext(NavContext);
-  const handleNavToggleChange = (params) => {
+  const handleNavChange = (params) => {
     navigate(`/${params.key}`);
     setNavSelected(params.key);
   };
@@ -50,6 +57,12 @@ function Dashboard() {
   const handleSelectRow = (row, rowIndex) => {
     setSelectedRow(rowIndex);
     console.log(row);
+  };
+
+  //About Deliery Location
+  const [deliveryLocation, setDeliveryLocation] = useState("");
+  const handleDeliveryLocationChanged = (event) => {
+    setDeliveryLocation(event.target.value);
   };
 
   //Analytics Card handling
@@ -78,7 +91,7 @@ function Dashboard() {
         <div className="d-inline-block col-auto my-1">
           <IconButton
             onClick={() =>
-              handleNavToggleChange({
+              handleNavChange({
                 id: 6,
                 key: "calendar",
                 icon: <CalendarMonth />,
@@ -90,7 +103,7 @@ function Dashboard() {
           </IconButton>
           <IconButton
             onClick={() =>
-              handleNavToggleChange({
+              handleNavChange({
                 id: 5,
                 key: "notification",
                 icon: <NotificationAdd />,
@@ -240,294 +253,213 @@ function Dashboard() {
               "&::-webkit-scrollbar": { display: "none" },
               msOverflowStyle: "none",
               scrollbarWidth: "none",
+              marginBottom: "16px",
             }}
           >
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
+            <Box
+              sx={{
+                backgroundColor: "#9797971a",
+                borderRadius: 8,
+                padding: "32px 16px",
+              }}
+            >
+              {/* Order Title */}
+              <div className="row mb-3">
+                <div className="col-auto">
+                  <img src={trolley_img} alt="trolley" />
                 </div>
+                <div className="col-auto fw-bolder">
+                  ORDER ID - 187828665488
+                </div>
+              </div>
+
+              {/* Order Info */}
+              <div className="row mb-3">
+                <div className="col">
+                  <div className="fw-lighter h6">Customer Name</div>
+                  <div className="fw-bold h6">@imalsah48_3289_</div>
+                </div>
+                <div className="col">
+                  <div className="fw-lighter h6">Mobile</div>
+                  <div className="fw-bold h6">+94719876543</div>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col">
+                  <div className="fw-lighter h6">Item Requested</div>
+                  <div className="fw-bold h6">Carrot</div>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col">
+                  <div className="fw-lighter h6">Quantity</div>
+                  <div className="fw-bold h6">115 kg</div>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col">
+                  <div className="fw-lighter h6">Quantity</div>
+                  <div className="fw-bold h6">115 kg</div>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col">
+                  <div className="fw-lighter h6">Delivery Location</div>
+                  <div className="fw-bold h6">4/b, Temple Road, Galle.</div>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col">
+                  <div className="fw-lighter h6">Distance</div>
+                  <div className="fw-bold h6">42 km</div>
+                </div>
+              </div>
+            </Box>
+
+            {/* Farmers Info */}
+            <div className="clearfix mt-3 mb-2">
+              <div className="fw-medium secondary-color">Farmer Info</div>
+            </div>
+            <Box
+              sx={{
+                backgroundColor: "#9797971a",
+                borderRadius: 8,
+                padding: "32px 16px",
+              }}
+            >
+              <div className="row mb-3">
+                <div className="col">
+                  <div className="fw-lighter h6">Farmer Name</div>
+                  <div className="fw-bold h6">@sunil_3289_</div>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col">
+                  <div className="fw-lighter h6">Mobile</div>
+                  <div className="fw-bold h6">+94771234567</div>
+                </div>
+                <div className="col">
+                  <div className="fw-lighter h6">Mobile</div>
+                  <div className="fw-bold h6">+94719876543</div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="fw-lighter h6">Pickup Location</div>
+                <div className="fw-bold h6">
+                  165/52, Milcasalwatta, Anuradhapura.
+                </div>
+              </div>
+            </Box>
+
+            {/* Delivery Info */}
+            <div className="clearfix mt-3 mb-2">
+              <div className="fw-medium secondary-color">Delivery Info</div>
+            </div>
+
+            <Box
+              sx={{
+                backgroundColor: "#9797971a",
+                borderRadius: 8,
+                padding: "32px 16px",
+                marginBottom: "32px",
+              }}
+            >
+              <div className="row">
+                <div className="fw-lighter h6 mb-2">Rider Name</div>
+                <div className="">
+                  <TextField
+                    id="rider-name"
+                    label="Name"
+                    variant="outlined"
+                    size="small"
+                    sx={{ minWidth: "100%", marginBottom: "16px" }}
+                    InputProps={{ style: { borderRadius: 15 } }}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="fw-lighter h6 mb-3">Delivery Method</div>
+                <div className="">
+                  <FormControl
+                    sx={{
+                      minWidth: "100%",
+                      marginBottom: "16px",
+                    }}
+                    size="small"
+                  >
+                    <InputLabel id="demo-select-small-label">
+                      Location
+                    </InputLabel>
+                    <Select
+                      labelId="demo-select-small-label"
+                      id="demo-select-small"
+                      value={deliveryLocation}
+                      label="Location"
+                      onChange={handleDeliveryLocationChanged}
+                      sx={{ borderRadius: 15 }}
+                    >
+                      <MenuItem value={"location1"}>Location 1</MenuItem>
+                      <MenuItem value={"location2"}>Location 2</MenuItem>
+                      <MenuItem value={"location3"}>Location 3</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="fw-lighter h6 mb-2">Rider Mobile</div>
+                <div className="">
+                  <TextField
+                    id="rider-mobile"
+                    label="Mobile"
+                    variant="outlined"
+                    size="small"
+                    sx={{ minWidth: "100%", marginBottom: "16px" }}
+                    InputProps={{ style: { borderRadius: 15 } }}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="fw-lighter h6 mb-2">Vehicle No</div>
+                <div className="">
+                  <TextField
+                    id="rider-vehicle-no"
+                    label="Vehicle No"
+                    variant="outlined"
+                    size="small"
+                    sx={{ minWidth: "100%", marginBottom: "16px" }}
+                    InputProps={{ style: { borderRadius: 15 } }}
+                  />
+                </div>
+              </div>
+            </Box>
+
+            {/* Action Button */}
+            <div className="row mb-2">
+              <div className="col">
+                <DefaultButton sx={{ width: "100%", padding: "10px 15px" }}>
+                  Assign
+                </DefaultButton>
               </div>
             </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>{" "}
-            <div className="bg-white rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
-              </div>
-            </div>
-            <div className="bg-info rounded">
-              <div className="row">
-                <div className="col"></div>
-                <div className="col fw-bold secondary-color">
-                  Order ID: 123456789
-                </div>
+            <div className="row mb-5">
+              <div className="col">
+                <DefaultButton
+                  sx={{
+                    width: "100%",
+                    padding: "10px 15px",
+                    color: "#2196F3",
+                    border: "1px solid #2196F3",
+                    backgroundColor: "#FFF",
+                    "&:hover": {
+                      color: "#FFF",
+                    },
+                  }}
+                >
+                  Cancel
+                </DefaultButton>
               </div>
             </div>
           </Box>
