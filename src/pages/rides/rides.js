@@ -49,7 +49,6 @@ function Rides() {
   const [selectedRow, setSelectedRow] = useState(0);
   const handleSelectRow = (row, rowIndex) => {
     setSelectedRow(rowIndex);
-    console.log(row);
   };
 
   //About Deliery Location
@@ -116,7 +115,7 @@ function Rides() {
                 />
               </div>
             </div>
-            Rides Tab Section
+            {/* Rides Tab Section */}
             <div>
               <TabContext
                 value={selectedTab}
