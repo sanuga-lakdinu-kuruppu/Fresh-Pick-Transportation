@@ -2,3 +2,6 @@
   width: 150px !important;
   height: auto !important;
 }
+.dashboard-table-empty {
+  min-height: 20vh;
+}

@@ -71,7 +71,9 @@ function ReportComponent(props) {
           {/* Middle button */}
           <div className="col-3">
             <div className="d-flex justify-content-center align-items-end h-100 pb-3">
-              <DefaultButton>Generate</DefaultButton>
+              <DefaultButton sx={{ padding: "8px 20px" }}>
+                Generate
+              </DefaultButton>
             </div>
           </div>
           <div className="col-3">

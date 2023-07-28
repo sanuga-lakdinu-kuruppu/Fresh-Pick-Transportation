@@ -15,7 +15,7 @@ import UserProfile from "./pages/userprofile/userprofile";
 function App() {
   const [navSelected, setNavSelected] = React.useState("dashboard");
   return (
-    <div className="App">
+    <div className="App bg-light">
       <div className="container-fluid">
         <div className="row">
           <NavContext.Provider value={{ navSelected, setNavSelected }}>

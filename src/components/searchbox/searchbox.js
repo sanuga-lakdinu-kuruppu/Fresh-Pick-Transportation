@@ -23,6 +23,7 @@ function SearchBox() {
         freeSolo
         disableClearable
         options={gloableSearchOption.map((searchItem) => searchItem.title)}
+        size="small"
         renderInput={(params) => (
           <TextField
             {...params}
@@ -32,7 +33,11 @@ function SearchBox() {
             InputProps={{
               ...params.InputProps,
               type: "search",
-              style: { minWidth: 250, borderRadius: 75 },
+              style: {
+                minWidth: 250,
+                borderRadius: 75,
+                backgroundColor: "#FFF",
+              },
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton type="submit" aria-label="search">

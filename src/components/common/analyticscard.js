@@ -32,7 +32,7 @@ function AnalyticCard(props) {
             <div className="card-value fw-bold text-white">{props.value}</div>
           </div>
         </div>
-        <DefaultButton>More</DefaultButton>
+        <DefaultButton sx={{ padding: "3px 20px" }}>More</DefaultButton>
       </CardContent>
     </Card>
   );

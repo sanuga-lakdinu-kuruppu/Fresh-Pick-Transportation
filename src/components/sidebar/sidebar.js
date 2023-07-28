@@ -8,7 +8,7 @@ function SideBar() {
   // Nav bar
 
   return (
-    <div className="bg-light col-auto min-vh-100">
+    <div className="bg-white col-auto min-vh-100">
       {/* Application Logo */}
       <a
         href="http://localhost:3000/"
@@ -17,10 +17,8 @@ function SideBar() {
       >
         <img className="side-bar-logo" src={LOGO_X64} alt="Project Logo" />
         <div className="ms-2 me-4">
-          <div className="ms-2 mw-100 main-header fw-bolder text-primary">
-            FreshPick
-          </div>
-          <div className="ms-2 side-bar-description text-secondary">
+          <div className="ms-2 mw-100  fw-bolder primary-color">FreshPick</div>
+          <div className="ms-2 side-bar-description secondary-color">
             Where farming meets retails
           </div>
         </div>

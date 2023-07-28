@@ -20,19 +20,22 @@ import {
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { CalendarMonth, NotificationAdd } from "@mui/icons-material";
 import SearchBox from "../../components/searchbox/searchbox";
-import { LOGO_X64 } from "../../utils/constants/configconstants";
-import { RidesTableRows as ridesTableRows } from "../../utils/constants/uiconstants";
+import {
+  DashboardTableRows,
+  RidesTableRows as ridesTableRows,
+} from "../../utils/constants/uiconstants";
 import { NavContext } from "../../context/navcontext";
 import { useNavigate } from "react-router-dom";
 import BikeRideImg from "../../assets/graphics/images/rides_imgs/delivery-bike-rides-bicycle-img.png";
 import trolley_img from "../../assets/graphics/images/rides_imgs/trolley_full_details.png";
 import { DefaultButton } from "../../components/common/defaultbtn";
+import { CustomTableRow } from "../../components/common/tablerow";
 
 function Rides() {
   //User Defined
   //Navigation
   const navigate = useNavigate();
-  const { navSelected, setNavSelected } = useContext(NavContext);
+  const { setNavSelected } = useContext(NavContext);
   const handleNavChange = (params) => {
     navigate(`/${params.key}`);
     setNavSelected(params.key);
@@ -45,10 +48,22 @@ function Rides() {
   };
 
   //Tables
-  //set the selected Row
-  const [selectedRow, setSelectedRow] = useState(0);
-  const handleSelectRow = (row, rowIndex) => {
-    setSelectedRow(rowIndex);
+  //set the selected Row on Requested Table Selected Row
+  const [requestedTableSelectedRow, setRequestedTableSelectedRow] = useState(0);
+  const handleRequestedTableSelectedRow = (row, rowIndex) => {
+    setRequestedTableSelectedRow(rowIndex);
+  };
+
+  //Set the selected row on ongoing table selected Row
+  const [ongoingTableSelectedRow, setOngoingTableSelectedRow] = useState(0);
+  const handleOngoingTableSelectedRow = (row, rowIndex) => {
+    setOngoingTableSelectedRow(rowIndex);
+  };
+
+  //Set the selected row on completed table in selected row
+  const [completedTableSelectedRow, setCompletedTableSelectedRow] = useState(0);
+  const handleCompletedTableSelectedRow = (row, rowIndex) => {
+    setCompletedTableSelectedRow(rowIndex);
   };
 
   //About Deliery Location
@@ -58,7 +73,7 @@ function Rides() {
   };
 
   return (
-    <div className="row">
+    <div className="min-vh-100">
       <div className="row">
         <div className="row ms-2 my-3 py-3 h3 fw-bolder primary-color">
           {/* Heading title */}
@@ -104,8 +119,8 @@ function Rides() {
         {/* Rides Tab Sections */}
         <div className="col-8">
           {/* All Your Activities Tab */}
-          <div className="row bg-light mb-3 ms-4 py-3 rounded">
-            <div className="h4 secondary-color fw-bolder text-black">
+          <div className="row bg-white mb-3 ms-4 py-3 rounded">
+            <div className="h4 secondary-color fw-bolder">
               All Your Activities
               <div className="d-block float-end">
                 <img
@@ -143,8 +158,8 @@ function Rides() {
                     <Table aria-label="simple table" size="small" stickyHeader>
                       <TableHead>
                         <TableRow
-                          selected={selectedRow === 0}
-                          onClick={() => handleSelectRow(0)}
+                          selected={requestedTableSelectedRow === 0}
+                          onClick={() => handleRequestedTableSelectedRow(0)}
                         >
                           <TableCell></TableCell>
                           <TableCell style={{ paddingTop: 0 }}>
@@ -152,30 +167,58 @@ function Rides() {
                           </TableCell>
                           <TableCell align="right">Product</TableCell>
                           <TableCell align="right">Quantity</TableCell>
-                          <TableCell align="right">Status</TableCell>
-                          <TableCell align="right">Time</TableCell>
+                          <TableCell align="right">Distance</TableCell>
+                          <TableCell align="right">Req Date</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody sx={{}}>
                         {ridesTableRows.map((row, index) => (
-                          <TableRow
+                          <CustomTableRow
                             key={row.id}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                            selected={selectedRow === index + 1}
-                            onClick={() => handleSelectRow(row, index + 1)}
+                            selected={requestedTableSelectedRow === index + 1}
+                            onClick={() =>
+                              handleRequestedTableSelectedRow(row, index + 1)
+                            }
                             hover
+                            style={{
+                              borderRadius: "30px",
+                              marginBottom: "8px",
+                            }}
                           >
-                            <TableCell component="th" scope="row">
+                            <TableCell
+                              sx={{
+                                borderTopLeftRadius: "15px",
+                                borderBottomLeftRadius: "15px",
+                                color: "inherit",
+                              }}
+                              component="th"
+                              scope="row"
+                            >
                               {row.avatar}
                             </TableCell>
-                            <TableCell align="right">{row.orderId}</TableCell>
-                            <TableCell align="right">{row.product}</TableCell>
-                            <TableCell align="right">{row.qty}</TableCell>
-                            <TableCell align="right">{row.status}</TableCell>
-                            <TableCell align="right">{row.date}</TableCell>
-                          </TableRow>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.orderId}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.product}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.qty}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.status}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                borderTopRightRadius: "15px",
+                                borderBottomRightRadius: "15px",
+                                color: "inherit",
+                              }}
+                              align="right"
+                            >
+                              {row.date}
+                            </TableCell>
+                          </CustomTableRow>
                         ))}
                       </TableBody>
                     </Table>
@@ -196,8 +239,8 @@ function Rides() {
                     <Table aria-label="simple table" size="small" stickyHeader>
                       <TableHead>
                         <TableRow
-                          selected={selectedRow === 0}
-                          onClick={() => handleSelectRow(0)}
+                          selected={ongoingTableSelectedRow === 0}
+                          onClick={() => handleOngoingTableSelectedRow(0)}
                         >
                           <TableCell></TableCell>
                           <TableCell style={{ paddingTop: 0 }}>
@@ -205,30 +248,58 @@ function Rides() {
                           </TableCell>
                           <TableCell align="right">Product</TableCell>
                           <TableCell align="right">Quantity</TableCell>
-                          <TableCell align="right">Status</TableCell>
-                          <TableCell align="right">Time</TableCell>
+                          <TableCell align="right">Distance</TableCell>
+                          <TableCell align="right">Req Date</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody sx={{}}>
                         {ridesTableRows.map((row, index) => (
-                          <TableRow
+                          <CustomTableRow
                             key={row.id}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                            selected={selectedRow === index + 1}
-                            onClick={() => handleSelectRow(row, index + 1)}
+                            selected={ongoingTableSelectedRow === index + 1}
+                            onClick={() =>
+                              handleOngoingTableSelectedRow(row, index + 1)
+                            }
                             hover
+                            style={{
+                              borderRadius: "30px",
+                              marginBottom: "8px",
+                            }}
                           >
-                            <TableCell component="th" scope="row">
+                            <TableCell
+                              sx={{
+                                borderTopLeftRadius: "15px",
+                                borderBottomLeftRadius: "15px",
+                                color: "inherit",
+                              }}
+                              component="th"
+                              scope="row"
+                            >
                               {row.avatar}
                             </TableCell>
-                            <TableCell align="right">{row.orderId}</TableCell>
-                            <TableCell align="right">{row.product}</TableCell>
-                            <TableCell align="right">{row.qty}</TableCell>
-                            <TableCell align="right">{row.status}</TableCell>
-                            <TableCell align="right">{row.date}</TableCell>
-                          </TableRow>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.orderId}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.product}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.qty}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.status}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                borderTopRightRadius: "15px",
+                                borderBottomRightRadius: "15px",
+                                color: "inherit",
+                              }}
+                              align="right"
+                            >
+                              {row.date}
+                            </TableCell>
+                          </CustomTableRow>
                         ))}
                       </TableBody>
                     </Table>
@@ -249,8 +320,8 @@ function Rides() {
                     <Table aria-label="simple table" size="small" stickyHeader>
                       <TableHead>
                         <TableRow
-                          selected={selectedRow === 0}
-                          onClick={() => handleSelectRow(0)}
+                          selected={completedTableSelectedRow === 0}
+                          onClick={() => handleCompletedTableSelectedRow(0)}
                         >
                           <TableCell></TableCell>
                           <TableCell style={{ paddingTop: 0 }}>
@@ -258,30 +329,58 @@ function Rides() {
                           </TableCell>
                           <TableCell align="right">Product</TableCell>
                           <TableCell align="right">Quantity</TableCell>
-                          <TableCell align="right">Status</TableCell>
-                          <TableCell align="right">Time</TableCell>
+                          <TableCell align="right">Distance</TableCell>
+                          <TableCell align="right">Req Date</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody sx={{}}>
                         {ridesTableRows.map((row, index) => (
-                          <TableRow
+                          <CustomTableRow
                             key={row.id}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                            selected={selectedRow === index + 1}
-                            onClick={() => handleSelectRow(row, index + 1)}
+                            selected={completedTableSelectedRow === index + 1}
+                            onClick={() =>
+                              handleCompletedTableSelectedRow(row, index + 1)
+                            }
                             hover
+                            style={{
+                              borderRadius: "30px",
+                              marginBottom: "8px",
+                            }}
                           >
-                            <TableCell component="th" scope="row">
+                            <TableCell
+                              sx={{
+                                borderTopLeftRadius: "15px",
+                                borderBottomLeftRadius: "15px",
+                                color: "inherit",
+                              }}
+                              component="th"
+                              scope="row"
+                            >
                               {row.avatar}
                             </TableCell>
-                            <TableCell align="right">{row.orderId}</TableCell>
-                            <TableCell align="right">{row.product}</TableCell>
-                            <TableCell align="right">{row.qty}</TableCell>
-                            <TableCell align="right">{row.status}</TableCell>
-                            <TableCell align="right">{row.date}</TableCell>
-                          </TableRow>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.orderId}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.product}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.qty}
+                            </TableCell>
+                            <TableCell sx={{ color: "inherit" }} align="right">
+                              {row.status}
+                            </TableCell>
+                            <TableCell
+                              sx={{
+                                borderTopRightRadius: "15px",
+                                borderBottomRightRadius: "15px",
+                                color: "inherit",
+                              }}
+                              align="right"
+                            >
+                              {row.date}
+                            </TableCell>
+                          </CustomTableRow>
                         ))}
                       </TableBody>
                     </Table>
@@ -289,239 +388,248 @@ function Rides() {
                 </TabPanel>
               </TabContext>
             </div>
+            <div className="row rides-table-empty"></div>
           </div>
         </div>
 
         {/* Full Details Tab */}
         <div className="col-4">
-          <div className="bg-light rounded ms-2 me-2 mt-0 p-2 mb-2">
+          <div className="bg-white rounded ms-2 me-2 mt-0 p-2 mb-2">
             {/* Full Detials Header */}
             <div className="clearfix mt-3 mb-2">
-              <div className="float-start fw-medium secondary-color">
+              <div className="h5 float-start fw-medium secondary-color">
                 Order Info
               </div>
               <div className="float-end fw-medium secondary-color">
-                {"2023-07-05"}
+                {(requestedTableSelectedRow > 0 ||
+                  ongoingTableSelectedRow > 0 ||
+                  completedTableSelectedRow > 0) &&
+                  "2023-07-05"}
               </div>
             </div>
 
             {/* Full Details Section */}
-            <Box
-              sx={{
-                maxHeight: 505,
-                overflowY: "scroll",
-                "&::-webkit-scrollbar": { display: "none" },
-                msOverflowStyle: "none",
-                scrollbarWidth: "none",
-              }}
-            >
+            {(requestedTableSelectedRow > 0 ||
+              ongoingTableSelectedRow > 0 ||
+              completedTableSelectedRow > 0) && (
               <Box
                 sx={{
-                  backgroundColor: "#9797971a",
-                  borderRadius: 8,
-                  padding: "32px 16px",
+                  maxHeight: 505,
+                  overflowY: "scroll",
+                  "&::-webkit-scrollbar": { display: "none" },
+                  msOverflowStyle: "none",
+                  scrollbarWidth: "none",
                 }}
               >
-                {/* Order Title */}
-                <div className="row mb-3">
-                  <div className="col-auto">
-                    <img src={trolley_img} alt="trolley" />
+                <Box
+                  sx={{
+                    backgroundColor: "#9797971a",
+                    borderRadius: 8,
+                    padding: "32px 16px",
+                  }}
+                >
+                  {/* Order Title */}
+                  <div className="row mb-3">
+                    <div className="col-auto">
+                      <img src={trolley_img} alt="trolley" />
+                    </div>
+                    <div className="col-auto fw-bolder">
+                      ORDER ID - 187828665488
+                    </div>
                   </div>
-                  <div className="col-auto fw-bolder">
-                    ORDER ID - 187828665488
+
+                  {/* Order Info */}
+                  <div className="row mb-3">
+                    <div className="col">
+                      <div className="fw-lighter h6">Customer Name</div>
+                      <div className="fw-bold h6">@imalsah48_3289_</div>
+                    </div>
+                    <div className="col">
+                      <div className="fw-lighter h6">Mobile</div>
+                      <div className="fw-bold h6">+94719876543</div>
+                    </div>
                   </div>
+                  <div className="row mb-3">
+                    <div className="col">
+                      <div className="fw-lighter h6">Item Requested</div>
+                      <div className="fw-bold h6">Carrot</div>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col">
+                      <div className="fw-lighter h6">Quantity</div>
+                      <div className="fw-bold h6">115 kg</div>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col">
+                      <div className="fw-lighter h6">Quantity</div>
+                      <div className="fw-bold h6">115 kg</div>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col">
+                      <div className="fw-lighter h6">Delivery Location</div>
+                      <div className="fw-bold h6">4/b, Temple Road, Galle.</div>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col">
+                      <div className="fw-lighter h6">Distance</div>
+                      <div className="fw-bold h6">42 km</div>
+                    </div>
+                  </div>
+                </Box>
+
+                {/* Farmers Info */}
+                <div className="clearfix mt-3 mb-2">
+                  <div className="fw-medium secondary-color">Farmer Info</div>
+                </div>
+                <Box
+                  sx={{
+                    backgroundColor: "#9797971a",
+                    borderRadius: 8,
+                    padding: "32px 16px",
+                  }}
+                >
+                  <div className="row mb-3">
+                    <div className="col">
+                      <div className="fw-lighter h6">Farmer Name</div>
+                      <div className="fw-bold h6">@sunil_3289_</div>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col">
+                      <div className="fw-lighter h6">Mobile</div>
+                      <div className="fw-bold h6">+94771234567</div>
+                    </div>
+                    <div className="col">
+                      <div className="fw-lighter h6">Mobile</div>
+                      <div className="fw-bold h6">+94719876543</div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="fw-lighter h6">Pickup Location</div>
+                    <div className="fw-bold h6">
+                      165/52, Milcasalwatta, Anuradhapura.
+                    </div>
+                  </div>
+                </Box>
+
+                {/* Delivery Info */}
+                <div className="clearfix mt-3 mb-2">
+                  <div className="fw-medium secondary-color">Delivery Info</div>
                 </div>
 
-                {/* Order Info */}
-                <div className="row mb-3">
-                  <div className="col">
-                    <div className="fw-lighter h6">Customer Name</div>
-                    <div className="fw-bold h6">@imalsah48_3289_</div>
+                <Box
+                  sx={{
+                    backgroundColor: "#9797971a",
+                    borderRadius: 8,
+                    padding: "32px 16px",
+                    marginBottom: "32px",
+                  }}
+                >
+                  <div className="row">
+                    <div className="fw-lighter h6 mb-2">Rider Name</div>
+                    <div className="">
+                      <TextField
+                        id="rider-name"
+                        label="Name"
+                        variant="outlined"
+                        size="small"
+                        sx={{ minWidth: "100%", marginBottom: "16px" }}
+                        InputProps={{ style: { borderRadius: 15 } }}
+                      />
+                    </div>
                   </div>
-                  <div className="col">
-                    <div className="fw-lighter h6">Mobile</div>
-                    <div className="fw-bold h6">+94719876543</div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col">
-                    <div className="fw-lighter h6">Item Requested</div>
-                    <div className="fw-bold h6">Carrot</div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col">
-                    <div className="fw-lighter h6">Quantity</div>
-                    <div className="fw-bold h6">115 kg</div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col">
-                    <div className="fw-lighter h6">Quantity</div>
-                    <div className="fw-bold h6">115 kg</div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col">
-                    <div className="fw-lighter h6">Delivery Location</div>
-                    <div className="fw-bold h6">4/b, Temple Road, Galle.</div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col">
-                    <div className="fw-lighter h6">Distance</div>
-                    <div className="fw-bold h6">42 km</div>
-                  </div>
-                </div>
-              </Box>
 
-              {/* Farmers Info */}
-              <div className="clearfix mt-3 mb-2">
-                <div className="fw-medium secondary-color">Farmer Info</div>
-              </div>
-              <Box
-                sx={{
-                  backgroundColor: "#9797971a",
-                  borderRadius: 8,
-                  padding: "32px 16px",
-                }}
-              >
-                <div className="row mb-3">
-                  <div className="col">
-                    <div className="fw-lighter h6">Farmer Name</div>
-                    <div className="fw-bold h6">@sunil_3289_</div>
-                  </div>
-                </div>
-                <div className="row mb-3">
-                  <div className="col">
-                    <div className="fw-lighter h6">Mobile</div>
-                    <div className="fw-bold h6">+94771234567</div>
-                  </div>
-                  <div className="col">
-                    <div className="fw-lighter h6">Mobile</div>
-                    <div className="fw-bold h6">+94719876543</div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="fw-lighter h6">Pickup Location</div>
-                  <div className="fw-bold h6">
-                    165/52, Milcasalwatta, Anuradhapura.
-                  </div>
-                </div>
-              </Box>
-
-              {/* Delivery Info */}
-              <div className="clearfix mt-3 mb-2">
-                <div className="fw-medium secondary-color">Delivery Info</div>
-              </div>
-
-              <Box
-                sx={{
-                  backgroundColor: "#9797971a",
-                  borderRadius: 8,
-                  padding: "32px 16px",
-                  marginBottom: "32px",
-                }}
-              >
-                <div className="row">
-                  <div className="fw-lighter h6 mb-2">Rider Name</div>
-                  <div className="">
-                    <TextField
-                      id="rider-name"
-                      label="Name"
-                      variant="outlined"
-                      size="small"
-                      sx={{ minWidth: "100%", marginBottom: "16px" }}
-                      InputProps={{ style: { borderRadius: 15 } }}
-                    />
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="fw-lighter h6 mb-3">Delivery Method</div>
-                  <div className="">
-                    <FormControl
-                      sx={{
-                        minWidth: "100%",
-                        marginBottom: "16px",
-                      }}
-                      size="small"
-                    >
-                      <InputLabel id="demo-select-small-label">
-                        Location
-                      </InputLabel>
-                      <Select
-                        labelId="demo-select-small-label"
-                        id="demo-select-small"
-                        value={deliveryLocation}
-                        label="Location"
-                        onChange={handleDeliveryLocationChanged}
-                        sx={{ borderRadius: 15 }}
+                  <div className="row">
+                    <div className="fw-lighter h6 mb-3">Delivery Method</div>
+                    <div className="">
+                      <FormControl
+                        sx={{
+                          minWidth: "100%",
+                          marginBottom: "16px",
+                        }}
+                        size="small"
                       >
-                        <MenuItem value={"location1"}>Location 1</MenuItem>
-                        <MenuItem value={"location2"}>Location 2</MenuItem>
-                        <MenuItem value={"location3"}>Location 3</MenuItem>
-                      </Select>
-                    </FormControl>
+                        <InputLabel id="demo-select-small-label">
+                          Location
+                        </InputLabel>
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          value={deliveryLocation}
+                          label="Location"
+                          onChange={handleDeliveryLocationChanged}
+                          sx={{ borderRadius: 15 }}
+                        >
+                          <MenuItem value={"location1"}>Location 1</MenuItem>
+                          <MenuItem value={"location2"}>Location 2</MenuItem>
+                          <MenuItem value={"location3"}>Location 3</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="fw-lighter h6 mb-2">Rider Mobile</div>
+                    <div className="">
+                      <TextField
+                        id="rider-mobile"
+                        label="Mobile"
+                        variant="outlined"
+                        size="small"
+                        sx={{ minWidth: "100%", marginBottom: "16px" }}
+                        InputProps={{ style: { borderRadius: 15 } }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="fw-lighter h6 mb-2">Vehicle No</div>
+                    <div className="">
+                      <TextField
+                        id="rider-vehicle-no"
+                        label="Vehicle No"
+                        variant="outlined"
+                        size="small"
+                        sx={{ minWidth: "100%", marginBottom: "16px" }}
+                        InputProps={{ style: { borderRadius: 15 } }}
+                      />
+                    </div>
+                  </div>
+                </Box>
+
+                {/* Action Button */}
+                <div className="row mb-2">
+                  <div className="col">
+                    <DefaultButton sx={{ width: "100%", padding: "10px 15px" }}>
+                      Assign
+                    </DefaultButton>
                   </div>
                 </div>
-
-                <div className="row">
-                  <div className="fw-lighter h6 mb-2">Rider Mobile</div>
-                  <div className="">
-                    <TextField
-                      id="rider-mobile"
-                      label="Mobile"
-                      variant="outlined"
-                      size="small"
-                      sx={{ minWidth: "100%", marginBottom: "16px" }}
-                      InputProps={{ style: { borderRadius: 15 } }}
-                    />
-                  </div>
-                </div>
-
-                <div className="row">
-                  <div className="fw-lighter h6 mb-2">Vehicle No</div>
-                  <div className="">
-                    <TextField
-                      id="rider-vehicle-no"
-                      label="Vehicle No"
-                      variant="outlined"
-                      size="small"
-                      sx={{ minWidth: "100%", marginBottom: "16px" }}
-                      InputProps={{ style: { borderRadius: 15 } }}
-                    />
+                <div className="row mb-5">
+                  <div className="col">
+                    <DefaultButton
+                      sx={{
+                        width: "100%",
+                        padding: "10px 15px",
+                        color: "#2196F3",
+                        border: "1px solid #2196F3",
+                        backgroundColor: "#FFF",
+                        "&:hover": {
+                          color: "#FFF",
+                        },
+                      }}
+                    >
+                      Cancel
+                    </DefaultButton>
                   </div>
                 </div>
               </Box>
-
-              {/* Action Button */}
-              <div className="row mb-2">
-                <div className="col">
-                  <DefaultButton sx={{ width: "100%", padding: "10px 15px" }}>
-                    Assign
-                  </DefaultButton>
-                </div>
-              </div>
-              <div className="row mb-5">
-                <div className="col">
-                  <DefaultButton
-                    sx={{
-                      width: "100%",
-                      padding: "10px 15px",
-                      color: "#2196F3",
-                      border: "1px solid #2196F3",
-                      backgroundColor: "#FFF",
-                      "&:hover": {
-                        color: "#FFF",
-                      },
-                    }}
-                  >
-                    Cancel
-                  </DefaultButton>
-                </div>
-              </div>
-            </Box>
+            )}
+            <div className="row rides-fullinfo-empty"></div>
           </div>
         </div>
       </div>
