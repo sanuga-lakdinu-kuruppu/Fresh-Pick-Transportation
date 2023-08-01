@@ -23,6 +23,7 @@ function SideBar() {
           </div>
         </div>
       </a>
+
       {/* Nav bar of the application */}
       <ul className="nav nav-pills mx-2 my-4">
         <NavMenu />

@@ -6,10 +6,6 @@ import {
   Poll,
 } from "@mui/icons-material";
 import { LOGO_X64 } from "./configconstants";
-import courierdash_analytics from "../../assets/graphics/images/dashboard_imgs/courierdash_analytics_.png";
-import shippingdash_analytics from "../../assets/graphics/images/dashboard_imgs/shippingdash_analytics_.png";
-import boxesdash_analytics from "../../assets/graphics/images/dashboard_imgs/boxesdash_analytics_.png";
-import investmentdash_analytics_ from "../../assets/graphics/images/dashboard_imgs/return-of-investmentdash_analytics_.png";
 import payment_payment from "../../assets/graphics/images/payments_imgs/payement_payment.png";
 import payment_increse from "../../assets/graphics/images/payments_imgs/payment_increase.png";
 import report_warranty_img from "../../assets/graphics/images/report_imgs/report_warranty_img.png";
@@ -62,52 +58,6 @@ const navMenuData = [
     key: "report",
     icon: <Poll className="nav-menu-icon" />,
     item: "Reports",
-  },
-];
-const dashboardAnalyticsCardData = [
-  {
-    id: 1,
-    header: "Requested Delivers",
-    value: 24,
-    image: courierdash_analytics,
-    gradientAngle: "315deg",
-    fromColor: "#2ecc71",
-    toColor: "#FFF",
-    width: 250,
-    height: 140,
-  },
-  {
-    id: 2,
-    header: "Ongoing Deliver",
-    value: 5,
-    image: shippingdash_analytics,
-    gradientAngle: "315deg",
-    fromColor: "#e67e22",
-    toColor: "#FFF",
-    width: 250,
-    height: 140,
-  },
-  {
-    id: 3,
-    header: "Completed Delivers",
-    value: 24,
-    image: boxesdash_analytics,
-    gradientAngle: "315deg",
-    fromColor: "#3498db",
-    toColor: "#FFF",
-    width: 250,
-    height: 140,
-  },
-  {
-    id: 4,
-    header: "Total Earned",
-    value: 426523,
-    image: investmentdash_analytics_,
-    gradientAngle: "315deg",
-    fromColor: "#e74c3c",
-    toColor: "#FFF",
-    width: 250,
-    height: 140,
   },
 ];
 
@@ -248,7 +198,6 @@ const reportCardData = [
 export const gloableSearchOption = gloablesearchoption;
 export const DashboardTableRows = dashBoardTableRows;
 export const NavMenuData = navMenuData;
-export const DashboardAnalyticsCardData = dashboardAnalyticsCardData;
 export const RidesTableRows = ridesTableRows;
 export const PaymentsAnalyticsCardData = paymentsAnalyticsCardData;
 export const PaymentsTableRows = paymentsTableRows;
