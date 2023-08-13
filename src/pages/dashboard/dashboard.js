@@ -152,7 +152,7 @@ function Dashboard() {
     },
     {
       id: 2,
-      header: "Ongoing Deliver",
+      header: "Ongoing Delivers",
       value: countOfOngoingDelivers,
       image: shippingdash_analytics,
       gradientAngle: "315deg",
@@ -281,6 +281,7 @@ function Dashboard() {
       await updateDoc(riderDetails, {
         deliveryStatus: "ongoing",
       });
+      alert("Vehicle is assign for order.");
     } catch (error) {
       setError(error.message);
       console.log(error.message);
@@ -470,7 +471,7 @@ function Dashboard() {
                             }}
                             align="right"
                           >
-                            {dayjs(row.data.orderDate).format("YYYY-mm-dd")}
+                            {today.format("YYYY-MM-DD").toString()}
                           </TableCell>
                         </CustomTableRow>
                       ))}
@@ -490,7 +491,8 @@ function Dashboard() {
                 Order Info
               </div>
               <div className="float-end fw-medium secondary-color">
-                {orderTableSelectedRow > 0 && "2023-07-05"}
+                {orderTableSelectedRow > 0 &&
+                  today.format("YYYY-MM-DD").toString()}
               </div>
             </div>
 

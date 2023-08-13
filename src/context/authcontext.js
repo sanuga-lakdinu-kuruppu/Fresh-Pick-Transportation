@@ -18,14 +18,17 @@ export const AuthContextProvider = ({ children }) => {
     const unsbscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-
     return () => {
       unsbscribe();
     };
   }, []);
 
+  const logOut = () => {
+    return signOut(auth);
+  };
+
   return (
-    <UserContext.Provider value={{ signIn, user }}>
+    <UserContext.Provider value={{ signIn, user, logOut }}>
       {children}
     </UserContext.Provider>
   );

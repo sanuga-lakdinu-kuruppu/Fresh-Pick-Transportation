@@ -5,6 +5,8 @@ import React, { useContext } from "react";
 import "./usercardstyles.css";
 import { useNavigate } from "react-router-dom";
 import { NavContext } from "../../context/navcontext";
+import { DefaultButton } from "../common/defaultbtn";
+import { UserAuth } from "../../context/authcontext";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -22,6 +24,17 @@ function UserCard() {
   const handleNavClicked = (params) => {
     navigate(`/user/${params.id}`);
     setNavSelected("userprofile");
+  };
+
+  //handle log out
+  const { user, logOut } = UserAuth();
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+      navigate("/login");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -42,6 +55,22 @@ function UserCard() {
           <div className="">
             <div className="user-card-header">Mr. Madura Perera</div>
             <div className="user-card-title">Transportation Company User</div>
+            <div className="">
+              <DefaultButton
+                onClick={handleLogOut}
+                sx={{
+                  fontSize: "5",
+                  color: "#2196F3",
+                  border: "1px solid #2196F3",
+                  backgroundColor: "#FFF",
+                  "&:hover": {
+                    color: "#FFF",
+                  },
+                }}
+              >
+                LogOut
+              </DefaultButton>
+            </div>
           </div>
         </div>
       </div>

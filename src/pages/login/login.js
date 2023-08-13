@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { LOGO_X64 } from "../../utils/constants/configconstants";
 import {
+  Alert,
+  AlertTitle,
   FilledInput,
   FormControl,
   IconButton,
@@ -35,11 +37,12 @@ function Login({ setUserLog }) {
     setError("");
     try {
       await signIn(email, password);
+      alert("Login Success.!");
       setUserLog(true);
       navigate("/");
     } catch (error) {
       setError(error.message);
-      console.log(error.message);
+      alert("Invalid Username or Password.");
     }
   };
 
